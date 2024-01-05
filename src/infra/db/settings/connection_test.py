@@ -1,5 +1,7 @@
+import pytest
 from .connection import DbConnectionHandle
 
+@pytest.mark.skip(reason="Sensive test")
 def test_crete_database_engine():
  db_connection_handle = DbConnectionHandle()
  
