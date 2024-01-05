@@ -1,0 +1,31 @@
+version: '3.4'
+
+services:
+  db:
+    image: mysql:lastest
+    container_name: db_sql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: clean_database
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+    ports:
+      - 3306:3306
+    volumes:
+      - ./db_sql:/var/lib/mysql
+    networks:
+      - backend
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=mysql://root:root@db_sql:3306/clean_database
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/app
