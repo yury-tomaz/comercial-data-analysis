@@ -2,20 +2,18 @@ version: '3.4'
 
 services:
   db:
-    image: mysql:lastest
+    image: mysql:latest 
     container_name: db_sql
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: clean_database
-      MYSQL_USER: root
-      MYSQL_PASSWORD: root
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
     ports:
       - 3306:3306
     volumes:
       - ./db_sql:/var/lib/mysql
-    networks:
-      - backend
 
   api:
     build:
@@ -25,6 +23,11 @@ services:
       - db
     environment:
       - DATABASE_URL=mysql://root:root@db_sql:3306/clean_database
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_HOST=db_sql
+      - DB_PORT=3306
+      - DB_NAME=${DB_NAME}
     ports:
       - "5000:5000"
     volumes:

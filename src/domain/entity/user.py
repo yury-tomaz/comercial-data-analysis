@@ -1,5 +1,3 @@
-# User Entity
-
 class User:
     def __init__(self, id: int, first_name: str, last_name: str,  age: int):
         self.id = id

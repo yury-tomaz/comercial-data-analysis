@@ -16,6 +16,5 @@ def request_adapter(request: FlaskRequest, controller: Callable) -> HttpResponse
         url=request.full_path
     )
 
-
     http_response = controller(http_request)
     return http_response
